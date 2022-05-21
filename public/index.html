@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../dist/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="bg-orange-400 text-3xl text-white flex justify-center py-8">
+        <h1>Sample todo-app</h1>
+    </div>
+    <div class="flex justify-center my-20">
+        <div x-data="{todos:[],userInput:''}" >
+            <div>
+                <form x-on:submit.prevent>
+                    <input class="w-80 py-3 rounded-md px-4 border-2" x-model="userInput" type="text" placeholder="Enter a task...">
+                    <button class="bg-orange-500 px-4 py-3 text-white font-bold" x-on:click="if(userInput.trim().length)todos.push({name:userInput,completed:false});userInput=''">
+                        +Add Task
+                    </button>
+                    </form>
+            </div>
+            <div>
+                <template x-for="todo in todos">
+                    <div class="bg-gray-100 my-1 px-2 py-2 flex items-center justify-between">
+                        <div class="flex items-center">
+                            <input type="checkbox" class="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded mr-2" x-model="todo.completed">
+                            <span x-text="todo.name" x-bind:class="{'completed':todo.completed}"></span> 
+                        </div>
+                        <button class="bg-gray-500 px-2 text-white font-bold rounded-full" x-on:click="todos = todos.filter((currentTodo)=> currentTodo!=todo)">X</button>
+                    </div>
+                </template>
+            </div>
+                <div>
+                    <button class="bg-red-600 px-3 text-white py-1" @click="todos=[]" x-show="todos.length">Clear</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../dist/main.js"></script>
+</body>
+</html>
